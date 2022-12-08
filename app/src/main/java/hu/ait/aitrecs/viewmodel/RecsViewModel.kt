@@ -12,7 +12,7 @@ import hu.ait.aitrecs.MapsActivity
 import hu.ait.aitrecs.data.Rec
 
 class RecsViewModel : ViewModel() {
-    var recs: MutableLiveData<Rec> = MutableLiveData<Rec>()
+    var recs: MutableLiveData<ArrayList<Rec>> = MutableLiveData<ArrayList<Rec>>()
 
     var snapshotListener: ListenerRegistration? = null
 
@@ -29,16 +29,20 @@ class RecsViewModel : ViewModel() {
                     return
                 }
 
+                val allRecs = ArrayList<Rec>()
+
                 for (docChange in querySnapshot?.documentChanges!!) {
                     val rec = docChange.document.toObject(Rec::class.java)
                     if (docChange.type == DocumentChange.Type.ADDED) {
-                        recs.postValue(rec)
+                        allRecs.add(rec)
                     } else if (docChange.type == DocumentChange.Type.REMOVED) {
 
                     } else if (docChange.type == DocumentChange.Type.MODIFIED) {
 
                     }
                 }
+
+                recs.value = allRecs
             }
         }
 

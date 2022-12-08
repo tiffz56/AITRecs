@@ -81,9 +81,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
         // add all recs from db onto map
         recsViewModel.recs.observe(
-            this, Observer { rec ->
-                allRecs.add(rec)
-                updateMap(rec)
+            this, Observer { recs ->
+                recs.forEach { rec ->
+                    allRecs.add(rec)
+                    updateMap(rec)
+                }
             }
         )
 
