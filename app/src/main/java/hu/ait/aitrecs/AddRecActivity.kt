@@ -62,6 +62,9 @@ class AddRecActivity : AppCompatActivity(), OnMapReadyCallback {
             MarkerOptions().position(coords)
         )?.isDraggable = true
 
+        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isMyLocationButtonEnabled = true
+
         mMap.setOnMarkerDragListener(
             object : GoogleMap.OnMarkerDragListener
             {

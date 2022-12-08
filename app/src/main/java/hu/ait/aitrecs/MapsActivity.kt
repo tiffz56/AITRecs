@@ -6,9 +6,11 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
@@ -33,7 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
     private lateinit var binding: ActivityMapsBinding
     private lateinit var myLocationManager: MyLocationManager
     private lateinit var currentLoc: LatLng
-    private lateinit var recsViewModel: RecsViewModel
+    lateinit var recsViewModel: RecsViewModel
     private lateinit var allRecs: ArrayList<Rec>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +64,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             startActivity(myIntent)
         }
 
+        binding.btnFindRec.setOnClickListener {
+            var myIntent = Intent(this, FindRecActivity::class.java)
+            myIntent.putExtra(KEY_CURRENT_LOC, currentLoc)
+            startActivity(myIntent)
+        }
+
+        binding.btnReset.setOnClickListener {
+            recsViewModel.queryRecs()
+        }
+
         requestNeededPermission()
     }
 
@@ -77,7 +89,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         ) {
             requestNeededPermission()
         }
+
         mMap.isMyLocationEnabled = true
+        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isCompassEnabled = true
+        mMap.uiSettings.isMyLocationButtonEnabled = true
 
         // add all recs from db onto map
         recsViewModel.recs.observe(
@@ -89,12 +105,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         )
 
-        recsViewModel.queryRecs()
+        //recsViewModel.queryRecs()
     }
 
     override fun onResume() {
         super.onResume()
-        recsViewModel.queryRecs()
+
+        val isMapFiltered = intent.getBooleanExtra(FindRecActivity.FILTER_ON, false)
+        if (isMapFiltered) {
+            filterMap()
+            recsViewModel.queryRecsWithFilters()
+        } else {
+            recsViewModel.queryRecs()
+        }
+
+    }
+
+    private fun filterMap() {
+        recsViewModel.meOnly = intent.getBooleanExtra(FindRecActivity.FILTER_ME_ONLY, false)
+        recsViewModel.distanceFromMe = intent.getLongExtra(FindRecActivity.FILTER_DISTANCE, 0)
+        recsViewModel.recCategory = intent.getIntExtra(FindRecActivity.FILTER_CATEGORY, -1)
     }
 
     override fun onDestroy() {
@@ -104,7 +134,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private fun updateMap(rec: Rec) {
         val marker = LatLng(rec.lat, rec.lng)
-        mMap.addMarker(MarkerOptions().position(marker).title(rec.locName))
+        mMap.addMarker(MarkerOptions()
+            .position(marker)
+            .title(rec.locName)
+            .snippet(rec.description)
+        )
     }
 
     private fun requestNeededPermission() {
