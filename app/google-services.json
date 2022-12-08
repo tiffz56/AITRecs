@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "357647747690",
+    "project_id": "aitrecs",
+    "storage_bucket": "aitrecs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357647747690:android:1d8ee18d55afd207a21813",
+        "android_client_info": {
+          "package_name": "hu.ait.aitrecs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357647747690-m8cct3iqvkvrubkij5rhbpja1pnlritl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd8rvlL-NjkPhWGmCyC_iMToM7-A0gpa4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357647747690-m8cct3iqvkvrubkij5rhbpja1pnlritl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
