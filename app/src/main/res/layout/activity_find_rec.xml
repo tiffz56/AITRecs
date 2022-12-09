@@ -22,15 +22,15 @@
         android:id="@+id/tbUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textOn="Everyone"
-        android:textOff="Me Only"/>
+        android:textOn="Me Only"
+        android:textOff="Everyone"/>
 
-    <EditText
+<!--     <EditText
         android:id="@+id/etDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="Distance From Me"/>
+        android:hint="Distance From Me"/> -->
 
     <Spinner
         android:id="@+id/spCategory"
