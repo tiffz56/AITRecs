@@ -11,7 +11,7 @@ class FindRecActivity : AppCompatActivity() {
     companion object {
         const val FILTER_ON = "filter_on"
         const val FILTER_ME_ONLY = "filter_me_only"
-        const val FILTER_DISTANCE = "filter_distance"
+        // const val FILTER_DISTANCE = "filter_distance"
         const val FILTER_CATEGORY = "filter_category"
     }
 
@@ -38,9 +38,9 @@ class FindRecActivity : AppCompatActivity() {
 
             myIntent.putExtra(FILTER_ON, true)
             myIntent.putExtra(FILTER_ME_ONLY, binding.tbUsers.isChecked)
-            if (binding.etDistance.text.isNotEmpty()) {
-                myIntent.putExtra(FILTER_DISTANCE, binding.etDistance.text.toString().toLong())
-            }
+//             if (binding.etDistance.text.isNotEmpty()) {
+//                 myIntent.putExtra(FILTER_DISTANCE, binding.etDistance.text.toString().toLong())
+//             }
             myIntent.putExtra(FILTER_CATEGORY, binding.spCategory.selectedItemPosition)
 
             startActivity(myIntent)
