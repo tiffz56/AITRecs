@@ -38,7 +38,9 @@ class FindRecActivity : AppCompatActivity() {
 
             myIntent.putExtra(FILTER_ON, true)
             myIntent.putExtra(FILTER_ME_ONLY, binding.tbUsers.isChecked)
-            myIntent.putExtra(FILTER_DISTANCE, binding.etDistance.text.toString().toLong())
+            if (binding.etDistance.text.isNotEmpty()) {
+                myIntent.putExtra(FILTER_DISTANCE, binding.etDistance.text.toString().toLong())
+            }
             myIntent.putExtra(FILTER_CATEGORY, binding.spCategory.selectedItemPosition)
 
             startActivity(myIntent)
