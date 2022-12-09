@@ -123,7 +123,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private fun filterMap() {
         recsViewModel.meOnly = intent.getBooleanExtra(FindRecActivity.FILTER_ME_ONLY, false)
-        recsViewModel.distanceFromMe = intent.getLongExtra(FindRecActivity.FILTER_DISTANCE, 0)
+        // recsViewModel.distanceFromMe = intent.getLongExtra(FindRecActivity.FILTER_DISTANCE, 0)
         recsViewModel.recCategory = intent.getIntExtra(FindRecActivity.FILTER_CATEGORY, -1)
     }
 
